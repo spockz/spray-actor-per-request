@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: net.sf.saxon:Saxon-HE:9.6.0-3:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.saxon/Saxon-HE/jars/Saxon-HE-9.6.0-3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.saxon/Saxon-HE/docs/Saxon-HE-9.6.0-3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.sf.saxon/Saxon-HE/srcs/Saxon-HE-9.6.0-3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
