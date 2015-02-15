@@ -16,13 +16,15 @@ trait PerRequest extends Actor with Json4sSupport {
   import context._
 
   val json4sFormats = DefaultFormats
-  def timeout : FiniteDuration
 
+  def timeout : FiniteDuration
   def r: RequestContext
   def target: ActorRef
   def message: RestRequest
 
   setReceiveTimeout(timeout)
+
+  // Pass the message to the Controller Actor
   target ! message
 
   def receive = {
@@ -44,6 +46,9 @@ trait PerRequest extends Actor with Json4sSupport {
     }
 }
 
+/**
+ * Convenience object for creating actors with default serialisation
+ */
 object PerRequest {
   case class WithActorRef(r: RequestContext, target: ActorRef, message: RestRequest, timeout: FiniteDuration) extends PerRequest
 
@@ -52,14 +57,17 @@ object PerRequest {
   }
 }
 
+/**
+ * Convenience trait for creating the Per-Request Actor
+ */
 trait PerRequestCreator {
   this: Actor =>
 
   import PerRequest._
 
   def perRequest(timeout: FiniteDuration)(r: RequestContext, target: ActorRef, message: RestRequest) =
-    context.actorOf(Props(new WithActorRef(r, target, message, timeout)))
+    context.actorOf(Props(WithActorRef(r, target, message, timeout)))
 
   def perRequest(timeout: FiniteDuration)(r: RequestContext, props: Props, message: RestRequest) =
-    context.actorOf(Props(new WithProps(r, props, message, timeout)))
+    context.actorOf(Props(WithProps(r, props, message, timeout)))
 }
